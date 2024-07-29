@@ -15,13 +15,68 @@ ___
 ### Context <a name="overview-context"></a>
 
 The agency serves a broad spectrum of clients, each with unique financial needs and health profiles. Traditionally, calculating life insurance premiums involved a complex evaluation of multiple factors, often leading to discrepancies and inefficiencies. While financial advisors have access to software for evaluating different plans and determining premiums, the agency wants to empower clients with a platform that allows them to get a rough estimate of their premiums based on their specific budget and status, as well as the potential savings.
+
+### Actions <a name="overview-actions"></a>
+
 To tackle this challenge, a comprehensive data-driven approach was adopted. The journey began with the collection of extensive client data, including demographic information, health metrics, and lifestyle factors. This data was then meticulously preprocessed to ensure its accuracy and completeness.
+
 I built a predictive model to find relationships between client metrics and *life insurance premium* for previous clients, and used this to predict premiums for potential new clients.
+
+As I was predicting a numeric output, I tested three regression modeling approaches, namely:
+
+* Linear Regression
+* Decision Tree
+* Random Forest
 <br>
 <br>
+
+### Results <a name="overview-results"></a>
+
+The Random Forest had the highest predictive accuracy.
+
+<br>
+**Metric 1: R-Squared (Test Set)**
+
+* Random Forest = 0.918
+* Decision Tree = 0.908
+* Linear Regression = 0.795
+  
+<br>
+**Metric 2: Adjusted R-Squared (Test Set)**
+
+* Random Forest = 0.915
+* Decision Tree = 0.904
+* Linear Regression = 0.786
+
+<br>
+**Metric 3: Cross Validated R-Squared (K-Fold Cross Validation, k = 4)**
+
+* Random Forest = 0.881
+* Decision Tree = 0.865
+* Linear Regression = 0.743
+
+As the most important outcome for this project was predictive accuracy, rather than explicitly understanding weighted drivers of prediction, I chose the Random Forest as the model to use for making predictions on the life insurance premiums for future clients.
+<br>
+<br>
+
+### Key Definition  <a name="overview-definition"></a>
+
+age: client's age
+sex: client's gender
+bmi: Body mass index is a value derived from the mass and height of a person (the body mass (kg) divided by the square of the body height (m^2))
+children: number of client's children
+smoker: client's smoking status	
+region: client's place of residence
+CI: includes critical illness insurance
+rated: increased premium due to health problems
+UL permanent: combined investment and life insurance
+disability: includes disability insurance
+premium: client's monthly payment
+
 ___
 
 # Data Overview  <a name="data-overview"></a>
+
 The initial dataset included various attributes such as age, gender, BMI, number of children, smoking status, region, and several insurance-related features. To prepare the data for modeling, several key steps were undertaken:
 
 Handling Missing Values: Any missing values in the dataset were identified and appropriately addressed.
@@ -38,17 +93,24 @@ With the data prepared, the next step was to train a machine learning model capa
 
 I tested three regression modeling approaches, namely:
 
-* Logistic Regression
+* Linear Regression
 * Decision Tree
 * Random Forest
-* K Nearest Neighbours (KNN)
 
 For each model, I imported the data in the same way but needed to pre-process the data based on the requirements of each particular algorithm. I trained & tested each model, refined each to provide optimal performance, and then measured this predictive performance based on several metrics to give a well-rounded overview of which is best.
-A linear regression, a decision tree regressor and a random forest regressor were selected for its interpretability and effectiveness in handling both numerical and categorical data.
 
-The dataset was split into training and testing sets, ensuring that the model could be evaluated on unseen data. The decision tree model was trained on the training set, and its performance was evaluated using the testing set. Key metrics such as R-squared and adjusted R-squared were calculated to assess the model's accuracy.
+The dataset was split into training and testing sets, ensuring that the model could be evaluated on unseen data. The model was trained on the training set, and its performance was evaluated using the testing set. Key metrics of R-squared and adjusted R-squared were calculated to assess the model's accuracy.
 
 To further refine the model, cross-validation was performed using KFold, providing a more robust evaluation by splitting the data into multiple folds and ensuring the model's consistency across different subsets of the data.
+
+
+
+
+
+
+
+
+
 
 Optimal Model Selection
 Determining the optimal complexity of the decision tree was crucial. By experimenting with different maximum depths for the tree, the optimal depth was identified based on the highest accuracy score. This step ensured that the model was neither too simple to capture essential patterns nor too complex to overfit the training data.
